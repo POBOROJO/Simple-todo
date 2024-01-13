@@ -5,7 +5,8 @@ const express = require("express");
 const { createTodo, updateTodo } = require("./types");
 const { todo } = require("./db");
 const app = express();
-app.use("express.json()");
+
+app.use(express.json());
 
 app.post("/todo",async(req,res) =>{ // here we create a new todo with title and a description
     const createPayload = req.body;
@@ -52,4 +53,8 @@ app.put("/completed" ,async(req,res)=>{ // here we mark a todo as completed
     res.json({
         msg : "Todo marked as completed",
     })
+})
+
+app.listen(3000,() =>{
+    console.log("Server is running on port 3000");
 })

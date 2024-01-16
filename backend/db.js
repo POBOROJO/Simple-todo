@@ -8,7 +8,7 @@
 
 const mongoose = require("mongoose");
 
-mongoose.connect("");
+mongoose.connect();
 
 const todoSchema = mongoose.Schema({
     title: String,
@@ -20,4 +20,4 @@ const todo = mongoose.model('todos',todoSchema);
 
 module.exports = {
     todo
-}
+} 

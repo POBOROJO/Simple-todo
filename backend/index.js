@@ -5,8 +5,10 @@ const express = require("express");
 const { createTodo, updateTodo } = require("./types");
 const { todo } = require("./db");
 const app = express();
+const cors = require("cors");
 
 app.use(express.json());
+app.use(cors());
 
 app.post("/todo",async(req,res) =>{ // here we create a new todo with title and a description
     const createPayload = req.body;
@@ -23,7 +25,7 @@ app.post("/todo",async(req,res) =>{ // here we create a new todo with title and 
         description : createPayload.description,
         completed : false,
     })
-
++
     res.json({
         msg : "Todo created successfully",
     })
@@ -32,7 +34,7 @@ app.post("/todo",async(req,res) =>{ // here we create a new todo with title and 
 app.get("/todo", async(req,res)=>{ // here we get all todos in the list
     const todos = await todo.find({});
     res.json({
-        todos
+        todos : []
     })
 })
 
@@ -45,7 +47,7 @@ app.put("/completed" ,async(req,res)=>{ // here we mark a todo as completed
         })
         return;
     }
-    await todo.update({
+    await todo.update({      // update function expects 2 args 1. which todo you want to update, 2. what do you want to update
         _id : req.body.id,    
     },{
         completed : true
